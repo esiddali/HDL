@@ -1,0 +1,42 @@
+[*]
+[*] GTKWave Analyzer v3.3.107 (w)1999-2020 BSI
+[*] Sat Jan 15 21:28:54 2022
+[*]
+[dumpfile] "/Users/eashansiddalingaiah/Documents/VHDL/Processor/counter.ghw"
+[dumpfile_mtime] "Sat Jan 15 21:27:22 2022"
+[dumpfile_size] 2428
+[savefile] "/Users/eashansiddalingaiah/Documents/VHDL/Processor/processor.gtkw"
+[timestart] 0
+[size] 1266 640
+[pos] -1 -1
+*-24.766354 65800000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.processortest.
+[treeopen] top.processortest.dut.
+[sst_width] 193
+[signals_width] 176
+[sst_expanded] 1
+[sst_vpaned_height] 172
+@28
+top.processortest.reset
+top.processortest.clock
+@800022
+#{top.processortest.dut.pc[15:0]} top.processortest.dut.pc[15] top.processortest.dut.pc[14] top.processortest.dut.pc[13] top.processortest.dut.pc[12] top.processortest.dut.pc[11] top.processortest.dut.pc[10] top.processortest.dut.pc[9] top.processortest.dut.pc[8] top.processortest.dut.pc[7] top.processortest.dut.pc[6] top.processortest.dut.pc[5] top.processortest.dut.pc[4] top.processortest.dut.pc[3] top.processortest.dut.pc[2] top.processortest.dut.pc[1] top.processortest.dut.pc[0]
+@1001200
+-group_end
+@800022
+#{top.processortest.dut.instruction[15:0]} top.processortest.dut.instruction[15] top.processortest.dut.instruction[14] top.processortest.dut.instruction[13] top.processortest.dut.instruction[12] top.processortest.dut.instruction[11] top.processortest.dut.instruction[10] top.processortest.dut.instruction[9] top.processortest.dut.instruction[8] top.processortest.dut.instruction[7] top.processortest.dut.instruction[6] top.processortest.dut.instruction[5] top.processortest.dut.instruction[4] top.processortest.dut.instruction[3] top.processortest.dut.instruction[2] top.processortest.dut.instruction[1] top.processortest.dut.instruction[0]
+@28
+top.processortest.dut.immediate_flag
+@1001200
+-group_end
+@800022
+#{top.processortest.dut.source[15:0]} top.processortest.dut.source[15] top.processortest.dut.source[14] top.processortest.dut.source[13] top.processortest.dut.source[12] top.processortest.dut.source[11] top.processortest.dut.source[10] top.processortest.dut.source[9] top.processortest.dut.source[8] top.processortest.dut.source[7] top.processortest.dut.source[6] top.processortest.dut.source[5] top.processortest.dut.source[4] top.processortest.dut.source[3] top.processortest.dut.source[2] top.processortest.dut.source[1] top.processortest.dut.source[0]
+@1001200
+-group_end
+@800022
+#{top.processortest.dut.a_reg[15:0]} top.processortest.dut.a_reg[15] top.processortest.dut.a_reg[14] top.processortest.dut.a_reg[13] top.processortest.dut.a_reg[12] top.processortest.dut.a_reg[11] top.processortest.dut.a_reg[10] top.processortest.dut.a_reg[9] top.processortest.dut.a_reg[8] top.processortest.dut.a_reg[7] top.processortest.dut.a_reg[6] top.processortest.dut.a_reg[5] top.processortest.dut.a_reg[4] top.processortest.dut.a_reg[3] top.processortest.dut.a_reg[2] top.processortest.dut.a_reg[1] top.processortest.dut.a_reg[0]
+@1001200
+-group_end
+[pattern_trace] 1
+[pattern_trace] 0
