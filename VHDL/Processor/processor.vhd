@@ -29,10 +29,17 @@ architecture Behavioral of Processor is
    signal nothing : std_logic_vector (DATA_WIDTH-1 downto 0) := (others => '0');
 
    -- Registers
-   signal prefix : std_logic_vector (DATA_WIDTH-1 downto 0) := (others => '0');
-   signal a_reg : std_logic_vector (DATA_WIDTH-1 downto 0) := (others => '0');
-   signal b_reg : std_logic_vector (DATA_WIDTH-1 downto 0) := (others => '0');
-   signal pc : std_logic_vector (ADDRESS_WIDTH-1 downto 0) := (others => '0');
+--   signal prefix : std_logic_vector (DATA_WIDTH-1 downto 0) := (others => '0');
+--   signal a_reg : std_logic_vector (DATA_WIDTH-1 downto 0) := (others => '0');
+--   signal b_reg : std_logic_vector (DATA_WIDTH-1 downto 0) := (others => '0');
+--   signal pc : std_logic_vector (ADDRESS_WIDTH-1 downto 0) := (others => '0');
+
+   type RegisterFile is array (0 to 7) of std_logic_vector(DATA_WIDTH-1 downto 0);
+   signal registers : RegisterFile := (others => x"0000");
+   constant PREFIX_INDEX : integer := 0;
+   constant A_REG_INDEX : integer := 1;
+   constant B_REG_INDEX : integer := 2;
+   constant PC_INDEX : integer := 3;
 
    -- Arithmetic
    signal sum : std_logic_vector (DATA_WIDTH-1 downto 0);
@@ -64,7 +71,7 @@ begin
       )
       port map (
          data_in => nothing,
-         address => pc,
+         address => registers(PC_INDEX),
          data_out => instruction
       );
 
@@ -77,92 +84,64 @@ begin
    destination <= instruction(DATA_WIDTH-2 downto DATA_WIDTH-8);
    -- Low 16 bits are the source registor or immediate value if immediate_flag is set
    source <= x"00" & instruction(DATA_WIDTH-8-1 downto 0);
-   sum <= a_reg + b_reg;
-   difference <= a_reg - b_reg;
+   sum <= registers(A_REG_INDEX) + registers(B_REG_INDEX);
+   difference <= registers(A_REG_INDEX) - registers(B_REG_INDEX);
    equal <= '0';
 
-   process(a_reg, b_reg)
+   process(registers(A_REG_INDEX), registers(B_REG_INDEX))
    begin
       lt <= '0';
       gt <= '0';
       equal <= '0';
-      if to_integer(unsigned(a_reg)) = to_integer(unsigned(b_reg)) then
+      if to_integer(unsigned(registers(A_REG_INDEX))) = to_integer(unsigned(registers(B_REG_INDEX))) then
          equal <= '1';
       end if;
-      if to_integer(unsigned(a_reg)) < to_integer(unsigned(b_reg)) then
+      if to_integer(unsigned(registers(A_REG_INDEX))) < to_integer(unsigned(registers(B_REG_INDEX))) then
          lt <= '1';
       end if;
-      if to_integer(unsigned(a_reg)) > to_integer(unsigned(b_reg)) then
+      if to_integer(unsigned(registers(A_REG_INDEX))) > to_integer(unsigned(registers(B_REG_INDEX))) then
          gt <= '1';
       end if;
    end process;
 
    process(clock, reset)
+   variable dest : integer;
    begin
       if reset = '1' then
-         a_reg <= (others => '0');
-         b_reg <= (others => '0');
-         pc <= (others => '0');
+         registers(B_REG_INDEX) <= (others => '0');
+         registers(A_REG_INDEX) <= (others => '0');
+         registers(PC_INDEX) <= (others => '0');
       else
          if (rising_edge(clock)) then
-            pc <= pc + 1;
+            dest := to_integer(unsigned(destination));
+            registers(PC_INDEX) <= registers(PC_INDEX) + 1;
             if immediate_flag = '1' then
-               if to_integer(unsigned(destination)) = 0 then
-                  prefix <= source;
+               if dest < 4 then
+                  registers(dest) <= source;
                end if;
-               if to_integer(unsigned(destination)) = 1 then
-                  a_reg <= source;
+               if dest = 4 and equal = '1' then
+                  registers(PC_INDEX) <= source;
                end if;
-               if to_integer(unsigned(destination)) = 2 then
-                  b_reg <= source;
+               if dest = 5 and equal = '0' then
+                  registers(PC_INDEX) <= source;
                end if;
-               if to_integer(unsigned(destination)) = 3 then
-                  pc <= source;
+               if dest = 6 and lt = '1' then
+                  registers(PC_INDEX) <= source;
                end if;
-               if to_integer(unsigned(destination)) = 4 and equal = '1' then
-                  pc <= source;
-               end if;
-               if to_integer(unsigned(destination)) = 5 and equal = '0' then
-                  pc <= source;
-               end if;
-               if to_integer(unsigned(destination)) = 6 and lt = '1' then
-                  pc <= source;
-               end if;
-               if to_integer(unsigned(destination)) = 7 and gt = '1' then
-                  pc <= source;
+               if dest = 7 and gt = '1' then
+                  registers(PC_INDEX) <= source;
                end if;
             else
                if arithmetic_flag = '1' then
+
                   -- Addition
                   if to_integer(unsigned(arithmetic_op)) = 1 then
-                     if to_integer(unsigned(destination)) = 0 then
-                        prefix <= sum;
-                     end if;   
-                     if to_integer(unsigned(destination)) = 1 then
-                        a_reg <= sum;
-                     end if;
-                     if to_integer(unsigned(destination)) = 2 then
-                        b_reg <= sum;
-                     end if;
-                     if to_integer(unsigned(destination)) = 3 then
-                        pc <= sum;
-                     end if;
+                     registers(dest) <= sum;
                   end if;
 
                   -- Subtraction
                   if to_integer(unsigned(arithmetic_op)) = 2 then
-                     if to_integer(unsigned(destination)) = 0 then
-                        prefix <= difference;
-                     end if;   
-                     if to_integer(unsigned(destination)) = 1 then
-                        a_reg <= difference;
-                     end if;
-                     if to_integer(unsigned(destination)) = 2 then
-                        b_reg <= difference;
-                     end if;
-                     if to_integer(unsigned(destination)) = 3 then
-                        pc <= difference;
-                     end if;
+                     registers(dest) <= difference;
                   end if;
 
 
