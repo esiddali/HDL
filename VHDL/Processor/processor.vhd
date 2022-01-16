@@ -86,7 +86,6 @@ begin
    source <= x"00" & instruction(DATA_WIDTH-8-1 downto 0);
    sum <= registers(A_REG_INDEX) + registers(B_REG_INDEX);
    difference <= registers(A_REG_INDEX) - registers(B_REG_INDEX);
-   equal <= '0';
 
    process(registers(A_REG_INDEX), registers(B_REG_INDEX))
    begin
@@ -106,6 +105,7 @@ begin
 
    process(clock, reset)
    variable dest : integer;
+   variable src : integer;
    begin
       if reset = '1' then
          registers(B_REG_INDEX) <= (others => '0');
@@ -114,6 +114,7 @@ begin
       else
          if (rising_edge(clock)) then
             dest := to_integer(unsigned(destination));
+            src := to_integer(unsigned(source));
             registers(PC_INDEX) <= registers(PC_INDEX) + 1;
             if immediate_flag = '1' then
                if dest < 4 then
@@ -182,11 +183,11 @@ begin
                   -- dec
                   if to_integer(unsigned(arithmetic_op)) = 10 then
                      registers(dest) <= registers(dest) - '1';
-                  end if;                  
-
-
-
+                  end if;
+               else
+                  registers(dest) <= registers(src);
                end if;
+
             end if;
          end if;
       end if;

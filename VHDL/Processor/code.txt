@@ -1,6 +1,6 @@
-set a 13
-set b 11
+set a 1
+set b 3
 label loop
 inc a
 dec b
-set pc loop
+set pc loop if equal
