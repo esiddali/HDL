@@ -144,6 +144,47 @@ begin
                      registers(dest) <= difference;
                   end if;
 
+                  -- Equal
+                  if to_integer(unsigned(arithmetic_op)) = 3 then
+                     registers(dest) <= (DATA_WIDTH-1 downto 1 => '0') & equal;
+                  end if;
+
+                  -- Greater than
+                  if to_integer(unsigned(arithmetic_op)) = 4 then
+                     registers(dest) <= (DATA_WIDTH-1 downto 1 => '0') & gt;
+                  end if;
+
+                  -- Less than
+                  if to_integer(unsigned(arithmetic_op)) = 5 then
+                     registers(dest) <= (DATA_WIDTH-1 downto 1 => '0') & lt;
+                  end if;
+                  
+                  -- AND
+                  if to_integer(unsigned(arithmetic_op)) = 6 then
+                     registers(dest) <= registers(A_REG_INDEX) AND registers(B_REG_INDEX);
+                  end if;
+
+                  -- OR
+                  if to_integer(unsigned(arithmetic_op)) = 7 then
+                     registers(dest) <= registers(A_REG_INDEX) OR registers(B_REG_INDEX);
+                  end if;
+
+                  -- XOR
+                  if to_integer(unsigned(arithmetic_op)) = 8 then
+                     registers(dest) <= registers(A_REG_INDEX) XOR registers(B_REG_INDEX);
+                  end if;
+
+                  -- inc
+                  if to_integer(unsigned(arithmetic_op)) = 9 then
+                     registers(dest) <= registers(dest) + '1';
+                  end if;
+
+                  -- dec
+                  if to_integer(unsigned(arithmetic_op)) = 10 then
+                     registers(dest) <= registers(dest) - '1';
+                  end if;                  
+
+
 
                end if;
             end if;
