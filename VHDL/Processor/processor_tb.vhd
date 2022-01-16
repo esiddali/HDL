@@ -32,6 +32,8 @@ architecture arch of ProcessorTest is
     signal reset : std_logic := '0';
     signal clock : std_logic := '0';
     signal runSimulation : std_logic := '1';
+    constant CLOCKS : integer := 16;
+
 begin
 
 dut : Processor
@@ -59,17 +61,14 @@ begin
     wait until rising_edge(clock);
     reset <= '1';
     wait until rising_edge(clock);
-    wait until rising_edge(clock);
     reset <= '0';
     wait until rising_edge(clock);
-    wait until rising_edge(clock);
-    wait until rising_edge(clock);
-    wait until rising_edge(clock);
-    wait until rising_edge(clock);
-    wait until rising_edge(clock);
-    wait until rising_edge(clock);
-    wait until rising_edge(clock);
-    wait until rising_edge(clock);
+
+    for i in 0 to CLOCKS loop
+        wait until rising_edge(clock);
+    end loop;
+
+
 
     runSimulation <= '0';
     wait;

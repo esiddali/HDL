@@ -2,6 +2,8 @@
 
 rm work-obj93.cf
 
+python assembler.py
+
 ghdl -a --ieee=synopsys memory.vhd
 ghdl -a --ieee=synopsys processor.vhd
 ghdl -a --ieee=synopsys processor_tb.vhd

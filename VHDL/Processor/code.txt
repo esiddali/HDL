@@ -1,0 +1,5 @@
+set a 13
+set b 11
+label loop
+inc a
+set pc loop
