@@ -51,7 +51,7 @@ architecture Behavioral of Processor is
       generic  (
          DATA_WIDTH : integer := 16;
          ADDRESS_WIDTH : integer := 16;
-         DEPTH : natural := 8192
+         DEPTH : natural := 256
       );
       port (
          data_in : in std_logic_vector(DATA_WIDTH-1 downto 0);

@@ -4,6 +4,8 @@ use ieee.std_logic_1164.all;
 -- Avoid using ieee.std_logic_arith.all
 use ieee.std_logic_unsigned.all;
 use ieee.numeric_std.all;
+use ieee.std_logic_textio.all;
+use std.textio.all;
 
 entity Memory is
    generic  (
@@ -21,7 +23,23 @@ end Memory;
 architecture mem_arch of Memory is
 
 type MemoryType is array (0 to DEPTH-1) of std_logic_vector(DATA_WIDTH-1 downto 0);
-signal store : MemoryType := (x"0000", x"810F", x"8207", x"0186", others => x"0000");
+
+
+impure function init_ram_hex return MemoryType is
+  file text_file : text open read_mode is "instructions.txt";
+  variable text_line : line;
+  variable ram_content : MemoryType;
+begin
+  for i in 0 to DEPTH - 1 loop
+    readline(text_file, text_line);
+    hread(text_line, ram_content(i));
+  end loop;
+ 
+  return ram_content;
+end function;
+
+
+signal store : MemoryType := init_ram_hex;
 
 begin
     -- Asynchronous assignments
