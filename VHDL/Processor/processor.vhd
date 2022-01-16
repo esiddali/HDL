@@ -67,7 +67,7 @@ begin
       generic map (
          DATA_WIDTH => DATA_WIDTH,
          ADDRESS_WIDTH => ADDRESS_WIDTH,
-         DEPTH => 16
+         DEPTH => 256
       )
       port map (
          data_in => nothing,
