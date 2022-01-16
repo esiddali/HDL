@@ -1,42 +1,34 @@
 [*]
 [*] GTKWave Analyzer v3.3.107 (w)1999-2020 BSI
-[*] Sat Jan 15 21:28:54 2022
+[*] Sun Jan 16 20:28:57 2022
 [*]
-[dumpfile] "/Users/eashansiddalingaiah/Documents/VHDL/Processor/counter.ghw"
-[dumpfile_mtime] "Sat Jan 15 21:27:22 2022"
-[dumpfile_size] 2428
-[savefile] "/Users/eashansiddalingaiah/Documents/VHDL/Processor/processor.gtkw"
+[dumpfile] "/Users/eashansiddalingaiah/Documents/github/HDL/VHDL/Processor/Processor.ghw"
+[dumpfile_mtime] "Sun Jan 16 20:25:39 2022"
+[dumpfile_size] 2937
+[savefile] "/Users/eashansiddalingaiah/Documents/github/HDL/VHDL/Processor/processor.gtkw"
 [timestart] 0
-[size] 1266 640
+[size] 1296 640
 [pos] -1 -1
-*-24.766354 65800000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-24.561962 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.processortest.
 [treeopen] top.processortest.dut.
+[treeopen] top.processortest.dut.registers.
 [sst_width] 193
 [signals_width] 176
 [sst_expanded] 1
 [sst_vpaned_height] 172
 @28
-top.processortest.reset
-top.processortest.clock
-@800022
-#{top.processortest.dut.pc[15:0]} top.processortest.dut.pc[15] top.processortest.dut.pc[14] top.processortest.dut.pc[13] top.processortest.dut.pc[12] top.processortest.dut.pc[11] top.processortest.dut.pc[10] top.processortest.dut.pc[9] top.processortest.dut.pc[8] top.processortest.dut.pc[7] top.processortest.dut.pc[6] top.processortest.dut.pc[5] top.processortest.dut.pc[4] top.processortest.dut.pc[3] top.processortest.dut.pc[2] top.processortest.dut.pc[1] top.processortest.dut.pc[0]
-@1001200
--group_end
-@800022
+top.processortest.dut.reset
+top.processortest.dut.clock
+@22
 #{top.processortest.dut.instruction[15:0]} top.processortest.dut.instruction[15] top.processortest.dut.instruction[14] top.processortest.dut.instruction[13] top.processortest.dut.instruction[12] top.processortest.dut.instruction[11] top.processortest.dut.instruction[10] top.processortest.dut.instruction[9] top.processortest.dut.instruction[8] top.processortest.dut.instruction[7] top.processortest.dut.instruction[6] top.processortest.dut.instruction[5] top.processortest.dut.instruction[4] top.processortest.dut.instruction[3] top.processortest.dut.instruction[2] top.processortest.dut.instruction[1] top.processortest.dut.instruction[0]
 @28
+top.processortest.dut.arithmetic_flag
 top.processortest.dut.immediate_flag
-@1001200
--group_end
-@800022
-#{top.processortest.dut.source[15:0]} top.processortest.dut.source[15] top.processortest.dut.source[14] top.processortest.dut.source[13] top.processortest.dut.source[12] top.processortest.dut.source[11] top.processortest.dut.source[10] top.processortest.dut.source[9] top.processortest.dut.source[8] top.processortest.dut.source[7] top.processortest.dut.source[6] top.processortest.dut.source[5] top.processortest.dut.source[4] top.processortest.dut.source[3] top.processortest.dut.source[2] top.processortest.dut.source[1] top.processortest.dut.source[0]
-@1001200
--group_end
-@800022
-#{top.processortest.dut.a_reg[15:0]} top.processortest.dut.a_reg[15] top.processortest.dut.a_reg[14] top.processortest.dut.a_reg[13] top.processortest.dut.a_reg[12] top.processortest.dut.a_reg[11] top.processortest.dut.a_reg[10] top.processortest.dut.a_reg[9] top.processortest.dut.a_reg[8] top.processortest.dut.a_reg[7] top.processortest.dut.a_reg[6] top.processortest.dut.a_reg[5] top.processortest.dut.a_reg[4] top.processortest.dut.a_reg[3] top.processortest.dut.a_reg[2] top.processortest.dut.a_reg[1] top.processortest.dut.a_reg[0]
-@1001200
--group_end
+@22
++{A_REG} #{top.processortest.dut.registers[1][15:0]} top.processortest.dut.registers[1][15] top.processortest.dut.registers[1][14] top.processortest.dut.registers[1][13] top.processortest.dut.registers[1][12] top.processortest.dut.registers[1][11] top.processortest.dut.registers[1][10] top.processortest.dut.registers[1][9] top.processortest.dut.registers[1][8] top.processortest.dut.registers[1][7] top.processortest.dut.registers[1][6] top.processortest.dut.registers[1][5] top.processortest.dut.registers[1][4] top.processortest.dut.registers[1][3] top.processortest.dut.registers[1][2] top.processortest.dut.registers[1][1] top.processortest.dut.registers[1][0]
++{B_REG} #{top.processortest.dut.registers[2][15:0]} top.processortest.dut.registers[2][15] top.processortest.dut.registers[2][14] top.processortest.dut.registers[2][13] top.processortest.dut.registers[2][12] top.processortest.dut.registers[2][11] top.processortest.dut.registers[2][10] top.processortest.dut.registers[2][9] top.processortest.dut.registers[2][8] top.processortest.dut.registers[2][7] top.processortest.dut.registers[2][6] top.processortest.dut.registers[2][5] top.processortest.dut.registers[2][4] top.processortest.dut.registers[2][3] top.processortest.dut.registers[2][2] top.processortest.dut.registers[2][1] top.processortest.dut.registers[2][0]
++{PC} #{top.processortest.dut.registers[3][15:0]} top.processortest.dut.registers[3][15] top.processortest.dut.registers[3][14] top.processortest.dut.registers[3][13] top.processortest.dut.registers[3][12] top.processortest.dut.registers[3][11] top.processortest.dut.registers[3][10] top.processortest.dut.registers[3][9] top.processortest.dut.registers[3][8] top.processortest.dut.registers[3][7] top.processortest.dut.registers[3][6] top.processortest.dut.registers[3][5] top.processortest.dut.registers[3][4] top.processortest.dut.registers[3][3] top.processortest.dut.registers[3][2] top.processortest.dut.registers[3][1] top.processortest.dut.registers[3][0]
 [pattern_trace] 1
 [pattern_trace] 0

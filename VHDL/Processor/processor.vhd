@@ -29,11 +29,6 @@ architecture Behavioral of Processor is
    signal nothing : std_logic_vector (DATA_WIDTH-1 downto 0) := (others => '0');
 
    -- Registers
---   signal prefix : std_logic_vector (DATA_WIDTH-1 downto 0) := (others => '0');
---   signal a_reg : std_logic_vector (DATA_WIDTH-1 downto 0) := (others => '0');
---   signal b_reg : std_logic_vector (DATA_WIDTH-1 downto 0) := (others => '0');
---   signal pc : std_logic_vector (ADDRESS_WIDTH-1 downto 0) := (others => '0');
-
    type RegisterFile is array (0 to 7) of std_logic_vector(DATA_WIDTH-1 downto 0);
    signal registers : RegisterFile := (others => x"0000");
    constant PREFIX_INDEX : integer := 0;
@@ -47,6 +42,9 @@ architecture Behavioral of Processor is
    signal equal : std_logic;
    signal gt : std_logic;
    signal lt : std_logic;
+   -- type ArithmeticType is array (0 to 15) of std_logic_vector(DATA_WIDTH-1 downto 0);
+   -- signal arithmetic : ArithmeticType := (others => x"0000");
+
 
 
    component Memory
