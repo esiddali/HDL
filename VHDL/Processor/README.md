@@ -1,6 +1,6 @@
 # Processor
 
-This is a simple processor written in VHDL. Every instruction is 16 bits wide and executes in a single clock cycle. This was developed for educational purposes only. My goal was to learn some VHDL and basic processor design. 
+This is a simple processor written in VHDL. Every instruction is 16 bits wide and executes in a single clock cycle. This was developed for educational purposes only. My goal was to learn some VHDL and basic processor design. This was a weekend project and many improvements can be made in the future.
 
 The tools used were 
 * GHDL 2.0
@@ -19,22 +19,26 @@ The instructions provided by instructions.txt are loaded into program memory and
 ```
 iddd dddd asss ssss
 ```
+```
 i - immediate flag (1 = true, 0  = false)
 d - destination register address
 a - arithmetic flag (1 = true, 0  = false)
 s - source register address (or raw value if immediate flag set)
+```
 
 Example instructions (without no operation padding):
-
+```
 Add a and b write to a
 1000 0001 0000 1111 -> (set a to 15)
 1000 0010 0000 0111 -> (set b to 7)
 0000 0001 1000 0001 -> (a = a + b)
 
+
 810F
 8207
 0181
-
+```
+```
 Jump to pc = 1 if a > b (loop)
 1000 0001 0000 1111 -> (set a to 15)
 1000 0010 0000 0111 -> (set b to 7)
@@ -43,13 +47,15 @@ Jump to pc = 1 if a > b (loop)
 810F
 8207
 8B01
-
+```
+```
 Increment b by one
 1000 0010 0000 0111 -> (set b to 7)
 0000 0010 1000 1001 -> (incrememnt b)
 
 8207
 0289
+```
 
 
 Instructions can be written to instructions.txt manually, or more easily through assembler.py. It generates instructions from the code written in code.txt and pads instructions.txt with no operations.

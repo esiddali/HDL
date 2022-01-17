@@ -26,7 +26,6 @@ architecture Behavioral of Processor is
    signal source : std_logic_vector (DATA_WIDTH-1 downto 0);
    signal arithmetic_flag : std_logic;
    signal arithmetic_op : std_logic_vector (DATA_WIDTH-10 downto 0);
-   signal nothing : std_logic_vector (DATA_WIDTH-1 downto 0) := (others => '0');
 
    -- Registers
    constant NUM_REGISTERS : integer := 8;    
@@ -35,6 +34,7 @@ architecture Behavioral of Processor is
    constant PREFIX_INDEX : integer := 0;
    constant A_REG_INDEX : integer := 1;
    constant B_REG_INDEX : integer := 2;
+   constant C_REG_INDEX : integer := 3;
    constant PC_INDEX : integer := NUM_REGISTERS-1;
 
    -- Arithmetic
@@ -43,12 +43,14 @@ architecture Behavioral of Processor is
    signal equal : std_logic;
    signal gt : std_logic;
    signal lt : std_logic;
-   -- type ArithmeticType is array (0 to 15) of std_logic_vector(DATA_WIDTH-1 downto 0);
-   -- signal arithmetic : ArithmeticType := (others => x"0000");
+   signal memory_write : std_logic;
+   signal memory_data_in : std_logic_vector (DATA_WIDTH-1 downto 0);
+   signal memory_data_out : std_logic_vector (DATA_WIDTH-1 downto 0);
 
 
 
-   component Memory
+
+   component ROM
       generic  (
          DATA_WIDTH : integer := 16;
          ADDRESS_WIDTH : integer := 16;
@@ -57,11 +59,30 @@ architecture Behavioral of Processor is
 
       );
       port (
-         data_in : in std_logic_vector(DATA_WIDTH-1 downto 0);
          address : in std_logic_vector(ADDRESS_WIDTH-1 downto 0);
          data_out : out std_logic_vector(DATA_WIDTH-1 downto 0)
       );
    end component;
+
+
+
+   component RAM
+      generic  (
+         DATA_WIDTH : integer := 16;
+         ADDRESS_WIDTH : integer := 16;
+         DEPTH : natural := 16
+      );
+      port (
+         address : in std_logic_vector(ADDRESS_WIDTH-1 downto 0);
+         data_in : in std_logic_vector(DATA_WIDTH-1 downto 0);      
+         data_out : out std_logic_vector(DATA_WIDTH-1 downto 0);
+         clock : in std_logic;
+         write : in std_logic
+      );
+   end component;
+
+
+
 
    function boolean_to_logic(value : boolean) return std_logic is
    begin
@@ -73,17 +94,31 @@ architecture Behavioral of Processor is
    end function boolean_to_logic;
 
 begin
-   program_memory : Memory
+   program_memory : ROM
       generic map (
          DATA_WIDTH => DATA_WIDTH,
          ADDRESS_WIDTH => ADDRESS_WIDTH,
          DEPTH => 256
       )
       port map (
-         data_in => nothing,
          address => registers(PC_INDEX),
          data_out => instruction
       );
+
+   data_memory : RAM
+      generic map (
+         DATA_WIDTH => DATA_WIDTH,
+         ADDRESS_WIDTH => ADDRESS_WIDTH,
+         DEPTH => 256
+      )
+      port map (
+         address => registers(C_REG_INDEX),
+         data_in => memory_data_in,
+         data_out => memory_data_out,
+         clock => clock,
+         write => memory_write
+      );
+
 
    -- High bit is immediate flag
    immediate_flag <= instruction(DATA_WIDTH-1);

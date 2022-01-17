@@ -7,7 +7,7 @@ use ieee.numeric_std.all;
 use ieee.std_logic_textio.all;
 use std.textio.all;
 
-entity Memory is
+entity ROM is
    generic  (
       DATA_WIDTH : integer := 16;
       ADDRESS_WIDTH : integer := 16;
@@ -15,32 +15,31 @@ entity Memory is
       FILENAME : string := "zero.txt"
    );
    port (
-      data_in : in std_logic_vector(DATA_WIDTH-1 downto 0);
       address : in std_logic_vector(ADDRESS_WIDTH-1 downto 0);
       data_out : out std_logic_vector(DATA_WIDTH-1 downto 0)
    );
-end Memory;
+end ROM;
 
-architecture mem_arch of Memory is
+architecture mem_arch of ROM is
 
 type MemoryType is array (0 to DEPTH-1) of std_logic_vector(DATA_WIDTH-1 downto 0);
 
 
-impure function init_ram_hex return MemoryType is
+impure function init_rom_hex return MemoryType is
   file text_file : text open read_mode is FILENAME;
   variable text_line : line;
-  variable ram_content : MemoryType;
+  variable rom_content : MemoryType;
 begin
   for i in 0 to DEPTH - 1 loop
     readline(text_file, text_line);
-    hread(text_line, ram_content(i));
+    hread(text_line, rom_content(i));
   end loop;
  
-  return ram_content;
+  return rom_content;
 end function;
 
 
-signal store : MemoryType := init_ram_hex;
+signal store : MemoryType := init_rom_hex;
 
 begin
     -- Asynchronous assignments
