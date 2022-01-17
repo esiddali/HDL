@@ -29,12 +29,13 @@ architecture Behavioral of Processor is
    signal nothing : std_logic_vector (DATA_WIDTH-1 downto 0) := (others => '0');
 
    -- Registers
-   type RegisterFile is array (0 to 7) of std_logic_vector(DATA_WIDTH-1 downto 0);
+   constant NUM_REGISTERS : integer := 8;    
+   type RegisterFile is array (0 to NUM_REGISTERS-1) of std_logic_vector(DATA_WIDTH-1 downto 0);
    signal registers : RegisterFile := (others => x"0000");
    constant PREFIX_INDEX : integer := 0;
    constant A_REG_INDEX : integer := 1;
    constant B_REG_INDEX : integer := 2;
-   constant PC_INDEX : integer := 3;
+   constant PC_INDEX : integer := NUM_REGISTERS-1;
 
    -- Arithmetic
    signal sum : std_logic_vector (DATA_WIDTH-1 downto 0);
@@ -118,19 +119,19 @@ begin
             registers(PREFIX_INDEX) <= x"0000";
 
             if immediate_flag = '1' then
-               if dest < 4 then
+               if dest < NUM_REGISTERS then
                   registers(dest) <= source;
                end if;
-               if dest = 4 and equal = '1' then
+               if dest = NUM_REGISTERS and equal = '1' then
                   registers(PC_INDEX) <= source;
                end if;
-               if dest = 5 and equal = '0' then
+               if dest = NUM_REGISTERS+1 and equal = '0' then
                   registers(PC_INDEX) <= source;
                end if;
-               if dest = 6 and lt = '1' then
+               if dest = NUM_REGISTERS+2 and lt = '1' then
                   registers(PC_INDEX) <= source;
                end if;
-               if dest = 7 and gt = '1' then
+               if dest = NUM_REGISTERS+3 and gt = '1' then
                   registers(PC_INDEX) <= source;
                end if;
             else

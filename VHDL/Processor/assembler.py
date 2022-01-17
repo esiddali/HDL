@@ -5,8 +5,9 @@ with open("code.txt", 'r') as f:
 
 machineCode = ["0000"]
 
-regMap = {'prefix' : 0, 'a' : 1, 'b' : 2, 'pc' : 3}
-jumpsMap = {'equal' : 4, 'unequal' : 5, 'lt' : 6, 'gt' : 7}
+NUM_REGISTERS = 8
+regMap = {'prefix' : 0, 'a' : 1, 'b' : 2, 'c' : 3, 'd' : 4, 'e' : 5, 'f' : 6, 'pc' : NUM_REGISTERS-1}
+jumpsMap = {'equal' : NUM_REGISTERS, 'unequal' : NUM_REGISTERS+1, 'lt' : NUM_REGISTERS+2, 'gt' : NUM_REGISTERS+3}
 labels = {}
 
 for i in range(0,len(lines)):
