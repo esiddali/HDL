@@ -92,7 +92,7 @@ begin
    -- Next seven bits are the destination register
    destination <= instruction(DATA_WIDTH-2 downto DATA_WIDTH-8);
    -- Low 16 bits are the source registor or immediate value if immediate_flag is set
-   source <= x"00" & instruction(DATA_WIDTH-8-1 downto 0);
+   source <= registers(PREFIX_INDEX)(DATA_WIDTH-8-1 downto 0) & instruction(DATA_WIDTH-8-1 downto 0);
    sum <= registers(A_REG_INDEX) + registers(B_REG_INDEX);
    difference <= registers(A_REG_INDEX) - registers(B_REG_INDEX);
 
@@ -115,6 +115,8 @@ begin
             dest := to_integer(unsigned(destination));
             src := to_integer(unsigned(source));
             registers(PC_INDEX) <= registers(PC_INDEX) + 1;
+            registers(PREFIX_INDEX) <= x"0000";
+
             if immediate_flag = '1' then
                if dest < 4 then
                   registers(dest) <= source;

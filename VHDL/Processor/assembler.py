@@ -5,7 +5,7 @@ with open("code.txt", 'r') as f:
 
 machineCode = ["0000"]
 
-regMap = {'a' : 1, 'b' : 2, 'pc' : 3}
+regMap = {'prefix' : 0, 'a' : 1, 'b' : 2, 'pc' : 3}
 jumpsMap = {'equal' : 4, 'unequal' : 5, 'lt' : 6, 'gt' : 7}
 labels = {}
 

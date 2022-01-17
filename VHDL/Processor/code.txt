@@ -1,6 +1,4 @@
-set a 5
-set b 2
-xor a
+set prefix 15
+set a 2
 inc a
-dec b
-copy pc to pc
+set a 2
