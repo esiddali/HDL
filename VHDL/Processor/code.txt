@@ -1,6 +1,6 @@
-set a 1
-set b 3
-label loop
+set a 5
+set b 2
+xor a
 inc a
 dec b
-set pc loop if equal
+copy pc to pc

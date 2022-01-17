@@ -62,6 +62,15 @@ architecture Behavioral of Processor is
       );
    end component;
 
+   function boolean_to_logic(value : boolean) return std_logic is
+   begin
+      if value then
+         return '1';
+      else
+         return '0';
+      end if; 
+   end function boolean_to_logic;
+
 begin
    program_memory : Memory
       generic map (
@@ -87,21 +96,11 @@ begin
    sum <= registers(A_REG_INDEX) + registers(B_REG_INDEX);
    difference <= registers(A_REG_INDEX) - registers(B_REG_INDEX);
 
-   process(registers(A_REG_INDEX), registers(B_REG_INDEX))
-   begin
-      lt <= '0';
-      gt <= '0';
-      equal <= '0';
-      if to_integer(unsigned(registers(A_REG_INDEX))) = to_integer(unsigned(registers(B_REG_INDEX))) then
-         equal <= '1';
-      end if;
-      if to_integer(unsigned(registers(A_REG_INDEX))) < to_integer(unsigned(registers(B_REG_INDEX))) then
-         lt <= '1';
-      end if;
-      if to_integer(unsigned(registers(A_REG_INDEX))) > to_integer(unsigned(registers(B_REG_INDEX))) then
-         gt <= '1';
-      end if;
-   end process;
+   lt <= boolean_to_logic(to_integer(unsigned(registers(A_REG_INDEX))) < to_integer(unsigned(registers(B_REG_INDEX))));
+   
+   gt <= boolean_to_logic(to_integer(unsigned(registers(A_REG_INDEX))) > to_integer(unsigned(registers(B_REG_INDEX))));
+
+   equal <= boolean_to_logic(to_integer(unsigned(registers(A_REG_INDEX))) = to_integer(unsigned(registers(B_REG_INDEX))));
 
    process(clock, reset)
    variable dest : integer;
