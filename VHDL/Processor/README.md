@@ -5,17 +5,17 @@ This is a simple processor written in VHDL. Every instruction is 16 bits wide an
 The tools used were 
 * GHDL 2.0
 * GTKWave 3.3.107
-* Python3
+* Python 3
 
 ## How does it work?
 
-The processor I developed has seven registers for holding data and one register to act as the program counter. Registers a and b are special in that they are the inputs to arithmetic operations. The last register is always the program counter. The first register is alwawys used as a prefix register for loading the high 8 bits of a constant when registers are set to values greater than 255. 
+The processor I developed has seven registers for holding data and one register to act as the program counter. Registers a and b are special in that they are the inputs to arithmetic operations. The last register is always the program counter. The first register is always used as a prefix register for loading the high 8 bits of a constant when registers are set to values greater than 255. 
 
 The instructions provided by instructions.txt are loaded into program memory and executed. 256 16-bit instructions are expected in hexadecimal by the processor. 
 
 ![HighLevelDiagram.png](images/HighLevelDiagram.png)
 
-### Instruction Format
+## Instruction Format
 ```
 iddd dddd asss ssss
 ```
@@ -51,18 +51,17 @@ Jump to pc = 1 if a > b (loop)
 ```
 Increment b by one
 1000 0010 0000 0111 -> (set b to 7)
-0000 0010 1000 1001 -> (incrememnt b)
+0000 0010 1000 1001 -> (increment b)
 
 8207
 0289
 ```
 
-
 Instructions can be written to instructions.txt manually, or more easily through assembler.py. It generates instructions from the code written in code.txt and pads instructions.txt with no operations.
 
 Example input for assembler.py
 ```
-#Repeatedly increment a and decrement b
+#Repeatedly increment a and decrement b until a >= b
 set a 10
 set b 15
 label loop
@@ -85,6 +84,7 @@ The shell script run.sh runs all commands necessary to produce a .ghw from assem
 * set registers to immediate value
 * increment register by 1
 * decrement register by 1
+* shift left/right one bit
 
 ## Known Issues
 Writing and then immediately reading the same memory location will result in a data hazard. The latest value will not be obtained because the stored memory is delayed by one cycle. There is never a reason to do this instead of directly copying registers to registers. However, adding a nop will avoid the data hazard.

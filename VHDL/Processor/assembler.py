@@ -67,6 +67,12 @@ for i in range(0,len(lines)):
 	elif "xor" ==  cols[0]:
 		mc  = 0x0088 | (regMap[cols[1]] << 8)
 		machineCode.append(f'{mc:04X}')
+	elif "shiftleft" ==  cols[0]:
+		mc  = 0x008B | (regMap[cols[1]] << 8)
+		machineCode.append(f'{mc:04X}')
+	elif "shiftright" ==  cols[0]:
+		mc  = 0x008C | (regMap[cols[1]] << 8)
+		machineCode.append(f'{mc:04X}')
 	else:
 		print("Unknown: " + line)
 

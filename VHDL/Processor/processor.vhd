@@ -231,6 +231,16 @@ begin
                   if to_integer(unsigned(arithmetic_op)) = 10 then
                      registers(dest) <= registers(dest) - '1';
                   end if;
+
+                  -- left
+                  if to_integer(unsigned(arithmetic_op)) = 11 then
+                     registers(dest) <= registers(dest)(DATA_WIDTH-2 downto 0) & '0' ;
+                  end if;
+
+                  -- right
+                  if to_integer(unsigned(arithmetic_op)) = 12 then
+                     registers(dest) <= '0' & registers(dest)(DATA_WIDTH-1 downto 1);
+                  end if;
                else
 
                   -- Copy register to register
