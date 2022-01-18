@@ -2,6 +2,8 @@
 
 This is a simple processor written in VHDL. Every instruction is 16 bits wide and executes in a single clock cycle. This was developed for educational purposes only. My goal was to learn some VHDL and basic processor design. This was a weekend project and many improvements can be made in the future.
 
+It is very simple, but it is Turing complete.
+
 The tools used were 
 * GHDL 2.0
 * GTKWave 3.3.107
@@ -32,7 +34,6 @@ Add a and b write to a
 1000 0001 0000 1111 -> (set a to 15)
 1000 0010 0000 0111 -> (set b to 7)
 0000 0001 1000 0001 -> (a = a + b)
-
 
 810F
 8207
