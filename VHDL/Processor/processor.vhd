@@ -43,8 +43,8 @@ architecture Behavioral of Processor is
    signal equal : std_logic;
    signal gt : std_logic;
    signal lt : std_logic;
-   signal memory_write : std_logic;
-   signal memory_data_in : std_logic_vector (DATA_WIDTH-1 downto 0);
+   signal memory_write : std_logic := '0';
+   signal memory_data_in : std_logic_vector (DATA_WIDTH-1 downto 0) := x"0000";
    signal memory_data_out : std_logic_vector (DATA_WIDTH-1 downto 0);
 
 
@@ -152,6 +152,7 @@ begin
             src := to_integer(unsigned(source));
             registers(PC_INDEX) <= registers(PC_INDEX) + 1;
             registers(PREFIX_INDEX) <= x"0000";
+            memory_write <= '0';
 
             if immediate_flag = '1' then
                if dest < NUM_REGISTERS then
@@ -169,6 +170,15 @@ begin
                if dest = NUM_REGISTERS+3 and gt = '1' then
                   registers(PC_INDEX) <= source;
                end if;
+
+               -- Write to memory at address in C_REG
+               if dest = NUM_REGISTERS+4 then
+                  memory_data_in <= source;
+                  memory_write <= '1';
+               end if;
+
+
+
             else
                if arithmetic_flag = '1' then
 
@@ -222,9 +232,24 @@ begin
                      registers(dest) <= registers(dest) - '1';
                   end if;
                else
-                  registers(dest) <= registers(src);
-               end if;
 
+                  -- Copy register to register
+                  if (src < NUM_REGISTERS) and (dest < NUM_REGISTERS) then
+                     registers(dest) <= registers(src);
+                  end if;
+
+                  -- Copy memory to register
+                  if (src = NUM_REGISTERS+4) and (dest < NUM_REGISTERS) then
+                     registers(dest) <= memory_data_out;
+                  end if;
+
+                  -- Copy register to memory
+                  if (src < NUM_REGISTERS) and (dest = NUM_REGISTERS+4) then
+                     memory_data_in <= registers(src);
+                     memory_write <= '1';                        
+                  end if;
+               
+               end if;
             end if;
          end if;
       end if;

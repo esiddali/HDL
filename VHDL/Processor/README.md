@@ -13,7 +13,7 @@ The processor I developed has seven registers for holding data and one register 
 
 The instructions provided by instructions.txt are loaded into program memory and executed. 256 16-bit instructions are expected in hexadecimal by the processor. 
 
-![HighLevelDiagram.png](HighLevelDiagram.png)
+![HighLevelDiagram.png](images/HighLevelDiagram.png)
 
 ### Instruction Format
 ```
@@ -74,7 +74,7 @@ copy pc to pc
 
 The shell script run.sh runs all commands necessary to produce a .ghw from assembler code which can then be opened with GTKWave to confirm the results of the instructions.
 
-![ExampleWave.png](ExampleWave.png)
+![ExampleWave.png](images/ExampleWave.png)
 
 ## Operations supported
 * add/subtract integers
@@ -85,3 +85,16 @@ The shell script run.sh runs all commands necessary to produce a .ghw from assem
 * set registers to immediate value
 * increment register by 1
 * decrement register by 1
+
+## Known Issues
+Writing and then immediately reading the same memory location will result in a data hazard. The latest value will not be obtained because the stored memory is delayed by one cycle. There is never a reason to do this instead of directly copying registers to registers. However, adding a nop will avoid the data hazard.
+
+```
+set a 15
+set b 14
+copy a to memory
+copy memory to b
+copy memory to b
+```
+
+![Hazard.png](images/Hazard.png)

@@ -1,3 +1,8 @@
-set a 15
-set b 7
-set pc 1 if gt
+#Repeatedly increment a and decrement b
+set a 10
+set b 15
+label loop
+inc a
+dec b
+set pc loop if lt
+copy pc to pc

@@ -1,21 +1,22 @@
 [*]
 [*] GTKWave Analyzer v3.3.107 (w)1999-2020 BSI
-[*] Mon Jan 17 00:19:59 2022
+[*] Mon Jan 17 23:42:47 2022
 [*]
 [dumpfile] "/Users/eashansiddalingaiah/Documents/github/HDL/VHDL/Processor/Processor.ghw"
-[dumpfile_mtime] "Mon Jan 17 00:17:41 2022"
-[dumpfile_size] 15100
+[dumpfile_mtime] "Mon Jan 17 23:41:47 2022"
+[dumpfile_size] 27482
 [savefile] "/Users/eashansiddalingaiah/Documents/github/HDL/VHDL/Processor/processor.gtkw"
 [timestart] 0
-[size] 1296 640
-[pos] 46 65
-*-25.452751 39000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[size] 1153 600
+[pos] -1 -1
+*-25.452751 42700000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.processortest.
 [treeopen] top.processortest.dut.
+[treeopen] top.processortest.dut.data_memory.
 [treeopen] top.processortest.dut.registers.
 [sst_width] 193
-[signals_width] 176
+[signals_width] 210
 [sst_expanded] 1
 [sst_vpaned_height] 172
 @28
@@ -33,7 +34,16 @@ top.processortest.dut.immediate_flag
 @28
 top.processortest.dut.equal
 top.processortest.dut.lt
-@29
 top.processortest.dut.gt
+@22
+#{top.processortest.dut.destination[6:0]} top.processortest.dut.destination[6] top.processortest.dut.destination[5] top.processortest.dut.destination[4] top.processortest.dut.destination[3] top.processortest.dut.destination[2] top.processortest.dut.destination[1] top.processortest.dut.destination[0]
++{E_REG} #{top.processortest.dut.registers[5][15:0]} top.processortest.dut.registers[5][15] top.processortest.dut.registers[5][14] top.processortest.dut.registers[5][13] top.processortest.dut.registers[5][12] top.processortest.dut.registers[5][11] top.processortest.dut.registers[5][10] top.processortest.dut.registers[5][9] top.processortest.dut.registers[5][8] top.processortest.dut.registers[5][7] top.processortest.dut.registers[5][6] top.processortest.dut.registers[5][5] top.processortest.dut.registers[5][4] top.processortest.dut.registers[5][3] top.processortest.dut.registers[5][2] top.processortest.dut.registers[5][1] top.processortest.dut.registers[5][0]
++{C_REG} #{top.processortest.dut.registers[3][15:0]} top.processortest.dut.registers[3][15] top.processortest.dut.registers[3][14] top.processortest.dut.registers[3][13] top.processortest.dut.registers[3][12] top.processortest.dut.registers[3][11] top.processortest.dut.registers[3][10] top.processortest.dut.registers[3][9] top.processortest.dut.registers[3][8] top.processortest.dut.registers[3][7] top.processortest.dut.registers[3][6] top.processortest.dut.registers[3][5] top.processortest.dut.registers[3][4] top.processortest.dut.registers[3][3] top.processortest.dut.registers[3][2] top.processortest.dut.registers[3][1] top.processortest.dut.registers[3][0]
+@28
+top.processortest.dut.data_memory.write
+@22
++{Memory Data In} #{top.processortest.dut.data_memory.data_in[15:0]} top.processortest.dut.data_memory.data_in[15] top.processortest.dut.data_memory.data_in[14] top.processortest.dut.data_memory.data_in[13] top.processortest.dut.data_memory.data_in[12] top.processortest.dut.data_memory.data_in[11] top.processortest.dut.data_memory.data_in[10] top.processortest.dut.data_memory.data_in[9] top.processortest.dut.data_memory.data_in[8] top.processortest.dut.data_memory.data_in[7] top.processortest.dut.data_memory.data_in[6] top.processortest.dut.data_memory.data_in[5] top.processortest.dut.data_memory.data_in[4] top.processortest.dut.data_memory.data_in[3] top.processortest.dut.data_memory.data_in[2] top.processortest.dut.data_memory.data_in[1] top.processortest.dut.data_memory.data_in[0]
++{Memory Data Out} #{top.processortest.dut.memory_data_out[15:0]} top.processortest.dut.memory_data_out[15] top.processortest.dut.memory_data_out[14] top.processortest.dut.memory_data_out[13] top.processortest.dut.memory_data_out[12] top.processortest.dut.memory_data_out[11] top.processortest.dut.memory_data_out[10] top.processortest.dut.memory_data_out[9] top.processortest.dut.memory_data_out[8] top.processortest.dut.memory_data_out[7] top.processortest.dut.memory_data_out[6] top.processortest.dut.memory_data_out[5] top.processortest.dut.memory_data_out[4] top.processortest.dut.memory_data_out[3] top.processortest.dut.memory_data_out[2] top.processortest.dut.memory_data_out[1] top.processortest.dut.memory_data_out[0]
+#{top.processortest.dut.data_memory.address[15:0]} top.processortest.dut.data_memory.address[15] top.processortest.dut.data_memory.address[14] top.processortest.dut.data_memory.address[13] top.processortest.dut.data_memory.address[12] top.processortest.dut.data_memory.address[11] top.processortest.dut.data_memory.address[10] top.processortest.dut.data_memory.address[9] top.processortest.dut.data_memory.address[8] top.processortest.dut.data_memory.address[7] top.processortest.dut.data_memory.address[6] top.processortest.dut.data_memory.address[5] top.processortest.dut.data_memory.address[4] top.processortest.dut.data_memory.address[3] top.processortest.dut.data_memory.address[2] top.processortest.dut.data_memory.address[1] top.processortest.dut.data_memory.address[0]
 [pattern_trace] 1
 [pattern_trace] 0

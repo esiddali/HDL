@@ -1,18 +1,19 @@
 DEPTH = 256
+NUM_REGISTERS = 8
 
 with open("code.txt", 'r') as f:
 	lines = f.readlines()
 
 machineCode = ["0000"]
 
-NUM_REGISTERS = 8
-regMap = {'prefix' : 0, 'a' : 1, 'b' : 2, 'c' : 3, 'd' : 4, 'e' : 5, 'f' : 6, 'pc' : NUM_REGISTERS-1}
+# Memory isn't really a register but acts like one
+regMap = {'prefix' : 0, 'a' : 1, 'b' : 2, 'c' : 3, 'd' : 4, 'e' : 5, 'f' : 6, 'pc' : NUM_REGISTERS-1, 'memory' : NUM_REGISTERS+4}
 jumpsMap = {'equal' : NUM_REGISTERS, 'unequal' : NUM_REGISTERS+1, 'lt' : NUM_REGISTERS+2, 'gt' : NUM_REGISTERS+3}
 labels = {}
 
 for i in range(0,len(lines)):
 	line = lines[i].strip()
-	if len(line) > 0 and line[0] == "#":
+	if (len(line) == 0 or line[0] == "#"):
 		continue
 	cols = line.split()
 	if (("set" == cols[0]) and (len(cols) < 4)):
