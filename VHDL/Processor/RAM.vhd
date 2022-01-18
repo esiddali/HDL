@@ -34,6 +34,7 @@ begin
     data_out <= store(to_integer(unsigned(address)));
     process(clock)
     begin
+        -- When write flag is true, store data in memory
         if (rising_edge(clock)) then
             if write = '1' then
                 store(to_integer(unsigned(address))) <= data_in;

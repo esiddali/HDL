@@ -1,4 +1,4 @@
-#Repeatedly increment a and decrement b until a < b
+#Repeatedly increment a and decrement b until a >= b
 set a 10
 set b 15
 label loop

@@ -1,5 +1,4 @@
 
-
 library ieee;
 use ieee.std_logic_1164.all;
 -- Avoid using ieee.std_logic_arith.all
@@ -36,6 +35,7 @@ architecture arch of ProcessorTest is
 
 begin
 
+-- instance of processor
 dut : Processor
 generic map(
     DATA_WIDTH      => DATA_WIDTH,
@@ -48,6 +48,7 @@ port map(
     reset => reset
 );
 
+-- 10 nanosecond clock cycle (100 MHz)
 process begin
     wait for 5 ns;
     clock <= not clock;
@@ -58,17 +59,15 @@ end process;
 
 stimulus : process
 begin
+    -- assert reset for one clock
     wait until rising_edge(clock);
-    reset <= '1';
+    reset <= '1' after 2 ns, '0' after 16 ns;
     wait until rising_edge(clock);
-    reset <= '0';
     wait until rising_edge(clock);
 
     for i in 0 to CLOCKS loop
         wait until rising_edge(clock);
     end loop;
-
-
 
     runSimulation <= '0';
     wait;

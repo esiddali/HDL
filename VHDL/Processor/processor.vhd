@@ -36,6 +36,7 @@ architecture Behavioral of Processor is
    constant B_REG_INDEX : integer := 2;
    constant C_REG_INDEX : integer := 3;
    constant PC_INDEX : integer := NUM_REGISTERS-1;
+   constant MEMORY_INDEX : integer := NUM_REGISTERS+4;
 
    -- Arithmetic
    signal sum : std_logic_vector (DATA_WIDTH-1 downto 0);
@@ -46,9 +47,6 @@ architecture Behavioral of Processor is
    signal memory_write : std_logic := '0';
    signal memory_data_in : std_logic_vector (DATA_WIDTH-1 downto 0) := x"0000";
    signal memory_data_out : std_logic_vector (DATA_WIDTH-1 downto 0);
-
-
-
 
    component ROM
       generic  (
@@ -64,13 +62,11 @@ architecture Behavioral of Processor is
       );
    end component;
 
-
-
    component RAM
       generic  (
          DATA_WIDTH : integer := 16;
          ADDRESS_WIDTH : integer := 16;
-         DEPTH : natural := 16
+         DEPTH : natural := 65536
       );
       port (
          address : in std_logic_vector(ADDRESS_WIDTH-1 downto 0);
@@ -81,9 +77,7 @@ architecture Behavioral of Processor is
       );
    end component;
 
-
-
-
+   -- Convert boolean to logic
    function boolean_to_logic(value : boolean) return std_logic is
    begin
       if value then
@@ -119,7 +113,6 @@ begin
          write => memory_write
       );
 
-
    -- High bit is immediate flag
    immediate_flag <= instruction(DATA_WIDTH-1);
    arithmetic_flag <= instruction(DATA_WIDTH-9);
@@ -127,26 +120,25 @@ begin
 
    -- Next seven bits are the destination register
    destination <= instruction(DATA_WIDTH-2 downto DATA_WIDTH-8);
-   -- Low 16 bits are the source registor or immediate value if immediate_flag is set
+   -- Low eight bits are the source registor or immediate value if immediate_flag is set
    source <= registers(PREFIX_INDEX)(DATA_WIDTH-8-1 downto 0) & instruction(DATA_WIDTH-8-1 downto 0);
    sum <= registers(A_REG_INDEX) + registers(B_REG_INDEX);
    difference <= registers(A_REG_INDEX) - registers(B_REG_INDEX);
-
    lt <= boolean_to_logic(to_integer(unsigned(registers(A_REG_INDEX))) < to_integer(unsigned(registers(B_REG_INDEX))));
-   
    gt <= boolean_to_logic(to_integer(unsigned(registers(A_REG_INDEX))) > to_integer(unsigned(registers(B_REG_INDEX))));
-
    equal <= boolean_to_logic(to_integer(unsigned(registers(A_REG_INDEX))) = to_integer(unsigned(registers(B_REG_INDEX))));
 
    process(clock, reset)
    variable dest : integer;
    variable src : integer;
    begin
+      -- Processor reset
       if reset = '1' then
          registers(B_REG_INDEX) <= (others => '0');
          registers(A_REG_INDEX) <= (others => '0');
          registers(PC_INDEX) <= (others => '0');
       else
+         -- Fetch and execute instructions on the rising edge
          if (rising_edge(clock)) then
             dest := to_integer(unsigned(destination));
             src := to_integer(unsigned(source));
@@ -154,32 +146,43 @@ begin
             registers(PREFIX_INDEX) <= x"0000";
             memory_write <= '0';
 
+            -- Immediate instructions
+            -- Sets register or memory to raw value
             if immediate_flag = '1' then
+
+               -- Set register to raw value
                if dest < NUM_REGISTERS then
                   registers(dest) <= source;
                end if;
+
+               -- Jump to immediate value if a == b
                if dest = NUM_REGISTERS and equal = '1' then
                   registers(PC_INDEX) <= source;
                end if;
+
+               -- Jump to immediate value if a != b
                if dest = NUM_REGISTERS+1 and equal = '0' then
                   registers(PC_INDEX) <= source;
                end if;
+
+               -- Jump to immediate value if a < b
                if dest = NUM_REGISTERS+2 and lt = '1' then
                   registers(PC_INDEX) <= source;
                end if;
+
+               -- Jump to immediate value if a > b
                if dest = NUM_REGISTERS+3 and gt = '1' then
                   registers(PC_INDEX) <= source;
                end if;
 
                -- Write to memory at address in C_REG
-               if dest = NUM_REGISTERS+4 then
+               if dest = MEMORY_INDEX then
                   memory_data_in <= source;
                   memory_write <= '1';
                end if;
-
-
-
             else
+               -- Arithmetic instructions
+               -- All instructions performed on registers a and b (ex. a - b)
                if arithmetic_flag = '1' then
 
                   -- Addition
@@ -249,12 +252,12 @@ begin
                   end if;
 
                   -- Copy memory to register
-                  if (src = NUM_REGISTERS+4) and (dest < NUM_REGISTERS) then
+                  if (src = MEMORY_INDEX) and (dest < NUM_REGISTERS) then
                      registers(dest) <= memory_data_out;
                   end if;
 
                   -- Copy register to memory
-                  if (src < NUM_REGISTERS) and (dest = NUM_REGISTERS+4) then
+                  if (src < NUM_REGISTERS) and (dest = MEMORY_INDEX) then
                      memory_data_in <= registers(src);
                      memory_write <= '1';                        
                   end if;

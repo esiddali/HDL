@@ -1,16 +1,24 @@
+#!/usr/bin/python3
+
+# Constants
 DEPTH = 256
 NUM_REGISTERS = 8
 
+# Read assembly code from code.txt
 with open("code.txt", 'r') as f:
 	lines = f.readlines()
 
+# Initialize machine code 
 machineCode = ["0000"]
 
+# Initialize maps
 # Memory isn't really a register but acts like one
 regMap = {'prefix' : 0, 'a' : 1, 'b' : 2, 'c' : 3, 'd' : 4, 'e' : 5, 'f' : 6, 'pc' : NUM_REGISTERS-1, 'memory' : NUM_REGISTERS+4}
 jumpsMap = {'equal' : NUM_REGISTERS, 'unequal' : NUM_REGISTERS+1, 'lt' : NUM_REGISTERS+2, 'gt' : NUM_REGISTERS+3}
 labels = {}
 
+# Interpret assembly code and generate machine code
+# Could be simplified with more dictionaries at a later date
 for i in range(0,len(lines)):
 	line = lines[i].strip()
 	if (len(line) == 0 or line[0] == "#"):
@@ -77,7 +85,7 @@ for i in range(0,len(lines)):
 		print("Unknown: " + line)
 
 		
-
+# Write machine code to instructions.txt
 with open("instructions.txt", 'w') as f:
 	for line in machineCode:
 		f.write("%s\n" % line)
